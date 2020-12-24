@@ -12,7 +12,7 @@ const layer = new Konva.Layer();
 stage.add(layer);
 
 const vid = document.createElement("video");
-vid.src = "../assets/running.webm";
+vid.src = "./assets/running.webm";
 const image = new Konva.Image({
   image: vid,
   draggable: false,
