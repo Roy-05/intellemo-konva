@@ -1,6 +1,6 @@
 let width = 800;
 let height = 600;
-
+arr = [];
 const stage = new Konva.Stage({
   container: "canvas-ctr",
   width,
@@ -28,7 +28,7 @@ const addText = (data) => {
     x: image.x(),
     y: image.y(),
     draggable: true,
-    name: data.name,
+    id: data.id,
     text: data.text,
     fontSize: data.fontSize,
     fontFamily: data.fontFamily,
@@ -61,8 +61,15 @@ const addText = (data) => {
     },
   });
 
-  arr.push(simpleText);
+  arr.push(id);
+
   layer.add(simpleText);
+};
+
+const removeText = (id) => {
+  let textNode = layer.findOne(`#${id}`);
+  textNode.remove();
+  layer.draw();
 };
 
 const anim = new Konva.Animation(() => {}, layer);
@@ -80,17 +87,17 @@ document.getElementById("play").addEventListener("click", () => {
 document.getElementById("pause").addEventListener("click", () => {
   vid.pause();
   anim.stop();
+  removeText("konva_text_1");
 });
 
 document.getElementById("text-submit").addEventListener("click", () => {
   let text = document.getElementById("add-text-field").value;
   let fontFamily = document.getElementById("font-style-select").value;
   let fontSize = document.getElementById("font-size-select").value;
-  let name = `konva_text_${arr.length}`;
+  let id = `konva_text_${arr.length}`;
 
-  console.log(name);
   let data = {
-    name,
+    id,
     text,
     fontSize,
     fontFamily,
