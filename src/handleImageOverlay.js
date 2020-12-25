@@ -111,5 +111,5 @@ const addImageOverlay = () => {
     layer.draw();
   };
 
-  imgObj.src = "/assets/img/sun.png";
+  imgObj.src = "./assets/img/sun.png";
 };
