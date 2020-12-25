@@ -1,5 +1,5 @@
-let width = 800;
-let height = 600;
+let width = 540;
+let height = 540;
 arr = [];
 const stage = new Konva.Stage({
   container: "canvas-ctr",
@@ -13,11 +13,11 @@ stage.add(layer);
 
 const vid = document.createElement("video");
 vid.src = "./assets/running.webm";
+vid.loop = true;
+
 const image = new Konva.Image({
   image: vid,
   draggable: false,
-  x: 50,
-  y: 20,
 });
 
 layer.add(image);
@@ -61,7 +61,7 @@ const addText = (data) => {
     },
   });
 
-  arr.push(id);
+  arr.push(data.id);
 
   layer.add(simpleText);
 };
@@ -77,6 +77,9 @@ const anim = new Konva.Animation(() => {}, layer);
 vid.addEventListener("loadedmetadata", () => {
   image.width(vid.videoWidth * 0.75);
   image.height(vid.videoHeight * 0.75);
+
+  image.x((stage.width() - image.width()) / 2);
+  image.y((stage.height() - image.height()) / 2);
 });
 
 document.getElementById("play").addEventListener("click", () => {
@@ -87,13 +90,13 @@ document.getElementById("play").addEventListener("click", () => {
 document.getElementById("pause").addEventListener("click", () => {
   vid.pause();
   anim.stop();
-  removeText("konva_text_1");
 });
 
 document.getElementById("text-submit").addEventListener("click", () => {
   let text = document.getElementById("add-text-field").value;
   let fontFamily = document.getElementById("font-style-select").value;
   let fontSize = document.getElementById("font-size-select").value;
+  let fill = document.getElementById("font-color-input").value.toString();
   let id = `konva_text_${arr.length}`;
 
   let data = {
@@ -101,7 +104,7 @@ document.getElementById("text-submit").addEventListener("click", () => {
     text,
     fontSize,
     fontFamily,
-    fill: "black",
+    fill,
   };
 
   addText(data);

@@ -5,6 +5,7 @@ body {
   width: 100vw;
   height: 100vh;
   background-color: #f3f3f3;
+  box-sizing: border-box;
 }
 
 #app {
@@ -12,12 +13,12 @@ body {
   height: 100%;
   display: grid;
   grid-template-rows: 10% 90%;
-  grid-template-columns: 30% 70%;
+  grid-template-columns: 25% 25% 50%;
 }
 
 #banner {
   grid-column-start: 1;
-  grid-column-end: 3;
+  grid-column-end: 4;
   background-color: #00000f;
   color: #f7f7f7;
   font-size: 2rem;
@@ -37,4 +38,5 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  border: solid 1px;
 }

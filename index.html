@@ -4,6 +4,7 @@
     <title>Konva Playground</title>
     <meta charset="UTF-8" />
     <script src="https://unpkg.com/konva@7.0.3/konva.min.js" defer></script>
+    <script src="./libs/jscolor.js" defer></script>
     <script src="./src/index.js" defer></script>
     <link rel="stylesheet" href="./src/index.css" />
   </head>
@@ -24,21 +25,22 @@
         <div class="drawer-controls-row">
           <label for="font-size-select">Font Size:</label>
           <select name="font-sizes" id="font-size-select">
-            <option value="12">12</option>
-            <option value="14">14</option>
-            <option value="16">16</option>
-            <option value="18" selected="selected">18</option>
-            <option value="20">20</option>
-            <option value="22">22</option>
-            <option value="24">24</option>
-            <option value="26">26</option>
-            <option value="28">28</option>
             <option value="30">30</option>
             <option value="32">32</option>
             <option value="34">34</option>
             <option value="36">36</option>
             <option value="38">38</option>
             <option value="40">40</option>
+            <option value="42">42</option>
+            <option value="44">44</option>
+            <option value="46">46</option>
+            <option value="48">48</option>
+            <option value="50">50</option>
+            <option value="52">52</option>
+            <option value="54">54</option>
+            <option value="56">56</option>
+            <option value="58">58</option>
+            <option value="60">60</option>
           </select>
         </div>
         <div class="drawer-controls-row">
@@ -50,9 +52,14 @@
           <button id="text-submit">Add Text!</button>
         </div>
         <div class="drawer-controls-row">
+          <label for="colorInput">Font Color:</label>
+          <input data-jscolor="" id="font-color-input" value="#000000" />
+        </div>
+        <div class="drawer-controls-row">
           <button id="play">Play</button> <button id="pause">Pause</button>
         </div>
       </div>
+      <div id="active-effects" class="grid-item"></div>
       <div id="canvas-outer-ctr" class="grid-item">
         <div id="canvas-ctr"></div>
       </div>
