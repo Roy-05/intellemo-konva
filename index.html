@@ -1,14 +1,61 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Learning Konva</title>
+    <title>Konva Playground</title>
     <meta charset="UTF-8" />
     <script src="https://unpkg.com/konva@7.0.3/konva.min.js" defer></script>
     <script src="./src/index.js" defer></script>
     <link rel="stylesheet" href="./src/index.css" />
   </head>
   <body>
-    <button id="play">Play</button><button id="pause">Pause</button>
-    <div id="app"><div id="canvas-ctr"></div></div>
+    <div id="app">
+      <div id="banner" class="grid-item">Konva Playground</div>
+      <div id="drawer-controls-ctr" class="grid-item">
+        <div class="drawer-controls-row">
+          <label for="font-style-select">Font Style:</label>
+          <select name="font-styles" id="font-style-select">
+            <option value="Cambria">Cambria</option>
+            <option value="Georgia">Georgia</option>
+            <option value="Helvetica">Helvetica</option>
+            <option value="sans-serif" selected="selected">Sans-Serif</option>
+            <option value="Times New Roman">Times New Roman</option>
+          </select>
+        </div>
+        <div class="drawer-controls-row">
+          <label for="font-size-select">Font Size:</label>
+          <select name="font-sizes" id="font-size-select">
+            <option value="12">12</option>
+            <option value="14">14</option>
+            <option value="16">16</option>
+            <option value="18" selected="selected">18</option>
+            <option value="20">20</option>
+            <option value="22">22</option>
+            <option value="24">24</option>
+            <option value="26">26</option>
+            <option value="28">28</option>
+            <option value="30">30</option>
+            <option value="32">32</option>
+            <option value="34">34</option>
+            <option value="36">36</option>
+            <option value="38">38</option>
+            <option value="40">40</option>
+          </select>
+        </div>
+        <div class="drawer-controls-row">
+          <input
+            type="text"
+            id="add-text-field"
+            placeholder="Add Text to Video"
+          />
+          <button id="text-submit">Add Text!</button>
+        </div>
+        <div class="drawer-controls-row">
+          <button id="play">Play</button> <button id="pause">Pause</button>
+        </div>
+      </div>
+      <div id="canvas-outer-ctr" class="grid-item">
+        <div id="canvas-ctr"></div>
+      </div>
+    </div>
   </body>
 </html>
