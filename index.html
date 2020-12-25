@@ -5,6 +5,8 @@
     <meta charset="UTF-8" />
     <script src="https://unpkg.com/konva@7.0.3/konva.min.js" defer></script>
     <script src="./libs/jscolor.js" defer></script>
+    <script src="./src/handleTextOverlay.js" defer></script>
+    <script src="./src/handleImageOverlay.js" defer></script>
     <script src="./src/index.js" defer></script>
     <link rel="stylesheet" href="./src/index.css" />
   </head>
@@ -15,10 +17,11 @@
         <div class="drawer-controls-row">
           <label for="font-style-select">Font Style:</label>
           <select name="font-styles" id="font-style-select">
+            <option value="Brush Script MT">Brush Script MT</option>
             <option value="Cambria">Cambria</option>
-            <option value="Georgia">Georgia</option>
+            <option value="Garamond">Garamond</option>
             <option value="Helvetica">Helvetica</option>
-            <option value="sans-serif" selected="selected">Sans-Serif</option>
+            <option value="sans-serif">Sans-Serif</option>
             <option value="Times New Roman">Times New Roman</option>
           </select>
         </div>
@@ -40,7 +43,7 @@
             <option value="54">54</option>
             <option value="56">56</option>
             <option value="58">58</option>
-            <option value="60">60</option>
+            <option value="60" selected="selected">60</option>
           </select>
         </div>
         <div class="drawer-controls-row">
@@ -52,14 +55,17 @@
           <button id="text-submit">Add Text!</button>
         </div>
         <div class="drawer-controls-row">
-          <label for="colorInput">Font Color:</label>
+          <label for="font-color-input">Font Color:</label>
           <input data-jscolor="" id="font-color-input" value="#000000" />
+        </div>
+        <div class="drawer-controls-row">
+          <label for="add-image">Add Image:</label>
+          <button id="add-image">Add</button>
         </div>
         <div class="drawer-controls-row">
           <button id="play">Play</button> <button id="pause">Pause</button>
         </div>
       </div>
-      <div id="active-effects" class="grid-item"></div>
       <div id="canvas-outer-ctr" class="grid-item">
         <div id="canvas-ctr"></div>
       </div>

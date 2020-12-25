@@ -1,103 +1,91 @@
-let width = 540;
-let height = 540;
-arr = [];
-const stage = new Konva.Stage({
-  container: "canvas-ctr",
-  width,
-  height,
-});
+// Created By Saket Roy 25/12
+// To understand KonvaJS
 
-const layer = new Konva.Layer();
+// Set the size of the canvas (Stage)
+const WIDTH = 540;
+const HEIGHT = 540;
 
-stage.add(layer);
+// A counter to give each text overlay item a unique id
+let counter = 1;
 
-const vid = document.createElement("video");
-vid.src = "./assets/running.webm";
-vid.loop = true;
+// Global variables to set up Konva and load the video to the canvas
+let stage, layer, vid, text, image, anim;
 
-const image = new Konva.Image({
-  image: vid,
-  draggable: false,
-});
-
-layer.add(image);
-layer.draw();
-
-const addText = (data) => {
-  let simpleText = new Konva.Text({
-    x: image.x(),
-    y: image.y(),
-    draggable: true,
-    id: data.id,
-    text: data.text,
-    fontSize: data.fontSize,
-    fontFamily: data.fontFamily,
-    fill: data.fill,
-    dragBoundFunc: (pos) => {
-      let w = image.width();
-      let h = image.height();
-
-      let tex_w = simpleText.width();
-      let tex_h = simpleText.height();
-      let x, y;
-
-      if (pos.x < image.x()) {
-        x = image.x();
-      } else if (pos.x > w + image.x() - tex_w) {
-        x = w - tex_w + image.x();
-      } else {
-        x = pos.x;
-      }
-
-      if (pos.y < image.y()) {
-        y = image.y();
-      } else if (pos.y > h + image.y() - tex_h) {
-        y = h + image.y() - tex_h;
-      } else {
-        y = pos.y;
-      }
-
-      return { x, y };
-    },
+// Initialization function to set up Konva
+const init = () => {
+  // Create the base canvas (Stage) where all rendering happens
+  stage = new Konva.Stage({
+    container: "canvas-ctr",
+    width: WIDTH,
+    height: HEIGHT,
   });
 
-  arr.push(data.id);
+  // Create a Layer (which is just another self-contained canvas element)
+  layer = new Konva.Layer();
 
-  layer.add(simpleText);
+  // Append the Layer to the Stage
+  stage.add(layer);
 };
 
-const removeText = (id) => {
-  let textNode = layer.findOne(`#${id}`);
-  textNode.remove();
+// Set up the video on Konva
+const setUpVideo = () => {
+  vid = document.createElement("video");
+  vid.src = "./assets/video/journey.mp4";
+  vid.loop = true;
+
+  text = new Konva.Text({
+    text: "Loading video...",
+    width: stage.width(),
+    height: stage.height(),
+    align: "center",
+    verticalAlign: "middle",
+  });
+
+  image = new Konva.Image({
+    image: vid,
+    draggable: false,
+  });
+
+  layer.add(text);
+  layer.add(image);
   layer.draw();
+
+  anim = new Konva.Animation(() => {}, layer);
+
+  vid.addEventListener("loadedmetadata", () => {
+    text.text("Press PLAY...");
+    image.width(vid.videoWidth);
+    image.height(vid.videoHeight);
+
+    image.x((stage.width() - image.width()) / 2);
+    image.y((stage.height() - image.height()) / 2);
+
+    layer.draw();
+  });
 };
 
-const anim = new Konva.Animation(() => {}, layer);
-
-vid.addEventListener("loadedmetadata", () => {
-  image.width(vid.videoWidth * 0.75);
-  image.height(vid.videoHeight * 0.75);
-
-  image.x((stage.width() - image.width()) / 2);
-  image.y((stage.height() - image.height()) / 2);
-});
-
-document.getElementById("play").addEventListener("click", () => {
+// Event Handler to play the video
+const playVideo = () => {
+  text.destroy();
   vid.play();
   anim.start();
-});
+};
 
-document.getElementById("pause").addEventListener("click", () => {
+// Event Handler to pause the video
+const pauseVideo = () => {
   vid.pause();
   anim.stop();
-});
+};
 
-document.getElementById("text-submit").addEventListener("click", () => {
-  let text = document.getElementById("add-text-field").value;
-  let fontFamily = document.getElementById("font-style-select").value;
-  let fontSize = document.getElementById("font-size-select").value;
-  let fill = document.getElementById("font-color-input").value.toString();
-  let id = `konva_text_${arr.length}`;
+// Event Handler to add the text overlay to video
+const addTextOverlay = () => {
+  let text = document.getElementById("add-text-field").value,
+    fontFamily = document.getElementById("font-style-select").value,
+    fontSize = document.getElementById("font-size-select").value,
+    fill = document.getElementById("font-color-input").value.toString(),
+    id = `konva_text_${counter}`;
+
+  counter++;
 
   let data = {
     id,
@@ -107,5 +95,19 @@ document.getElementById("text-submit").addEventListener("click", () => {
     fill,
   };
 
-  addText(data);
+  addTextNode(data);
+};
+
+// Initialize the canvas on DOMContentLoad
+document.addEventListener("DOMContentLoaded", () => {
+  init();
+  setUpVideo();
 });
+
+// Event Listeners for various events
+document.getElementById("play").addEventListener("click", playVideo);
+document.getElementById("pause").addEventListener("click", pauseVideo);
+document
+  .getElementById("text-submit")
+  .addEventListener("click", addTextOverlay);
+document.getElementById("add-image").addEventListener("click", addImageOverlay);

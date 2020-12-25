@@ -8,17 +8,27 @@ body {
   box-sizing: border-box;
 }
 
+#canvas-ctr {
+  border: 1px solid black;
+}
+
 #app {
   width: 100%;
   height: 100%;
   display: grid;
   grid-template-rows: 10% 90%;
-  grid-template-columns: 25% 25% 50%;
+  grid-template-columns: 30 70%;
+}
+
+.grid-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #banner {
   grid-column-start: 1;
-  grid-column-end: 4;
+  grid-column-end: 3;
   background-color: #00000f;
   color: #f7f7f7;
   font-size: 2rem;
@@ -32,11 +42,4 @@ body {
 
 .drawer-controls-row {
   margin: 1rem 0 1rem 0.5rem;
-}
-
-.grid-item {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: solid 1px;
 }
